@@ -1,0 +1,11 @@
+date,name,protein,carbs,fat,eaten
+2026-01-01,Chicken breast (200g),62,0,7.2,true
+2026-01-01,White rice (180g),4.9,50.4,0.5,true
+2026-01-01,Broccoli (150g),4.2,10.5,0.6,true
+2026-01-02,Greek yogurt (200g),20,7.2,0.8,true
+2026-01-02,Oats (80g),10.4,53.6,5.6,true
+2026-01-02,Whey protein (30g),24,2.4,1.8,true
+2026-01-02,Pizza (whole),40,120,60,false
+2026-01-03,Salmon (180g),36,0,23.4,true
+2026-01-03,Sweet potato (200g),3.2,40,0.2,true
+2026-01-03,Almonds (30g),6.3,6.6,14.7,true

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest -v
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t macro-tracker:ci .
+
+      # Smoke test: the container starts and its health endpoint responds.
+      - name: Smoke test the container
+        run: |
+          docker run -d --name mt -p 8501:8501 macro-tracker:ci
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8501/_stcore/health; then echo "healthy"; exit 0; fi
+            sleep 2
+          done
+          echo "container did not become healthy"; docker logs mt; exit 1
