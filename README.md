@@ -58,12 +58,12 @@ docker build -t macro-tracker .
 docker run --rm -p 8501:8501 macro-tracker   # http://localhost:8501
 ```
 
-Or pull the published image (optional; populated once an image is pushed to a
-registry. Replace `USER` with the Docker Hub / GHCR account):
+Or pull the pre-built image from GitHub Container Registry (published by CI on
+every push to `main`):
 
 ```bash
-docker pull USER/macro-tracker:latest
-docker run --rm -p 8501:8501 USER/macro-tracker:latest
+docker pull ghcr.io/mdiaspinto/macro-tracker-streamlit:latest
+docker run --rm -p 8501:8501 ghcr.io/mdiaspinto/macro-tracker-streamlit:latest
 ```
 
 ## CI
@@ -72,6 +72,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs on every push/PR:
 
 1. **Lint** with `ruff` and **test** with `pytest` on Python 3.11 and 3.12.
 2. **Build** the Docker image and **smoke-test** that the container becomes healthy.
+3. On `main`, **publish** the image to GHCR tagged `latest` and the commit SHA.
 
 ## Reproducibility
 
