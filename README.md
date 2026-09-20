@@ -57,11 +57,12 @@ docker build -t macro-tracker .
 docker run --rm -p 8501:8501 macro-tracker   # http://localhost:8501
 ```
 
-Or pull the published image:
+Or pull the published image (optional — populated once an image is pushed to a
+registry; replace `USER` with the Docker Hub / GHCR account):
 
 ```bash
-docker pull <your-dockerhub-user>/macro-tracker:latest
-docker run --rm -p 8501:8501 <your-dockerhub-user>/macro-tracker:latest
+docker pull USER/macro-tracker:latest
+docker run --rm -p 8501:8501 USER/macro-tracker:latest
 ```
 
 ## CI
